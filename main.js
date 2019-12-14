@@ -150,7 +150,9 @@ const createPDF = () => {
         doc.text(payment.nazwaOdbiorcy2, 71.2, offset + 27.2); //Nazwa odbiorcy cd.
         doc.text(payment.rachunekOdbiorcy, 71.2, offset + 35.5); //Rachunek odbiorcy
         doc.text(payment.kwota, 139, offset + 43.8); //Kwota
-        doc.text(payment.kwotaSlownie, 71.2, offset + 52.8); //Kwota słownie
+        doc.setFontSize(6.5);
+        doc.text(payment.kwotaSlownie, 71.2, offset + 52.5); //Kwota słownie
+        doc.setFontSize(8);
         doc.text(payment.nazwaZleceniodawcy, 71.2, offset + 62.1); //Nazwa zleceniodawcy
         doc.text(payment.nazwaZleceniodawcy2, 71.2, offset + 70.1); //Nazwa zleceniodawcy cd.
         doc.text(payment.tytul, 71.2, offset + 79); //Tytuł wpłaty
@@ -334,7 +336,7 @@ let inputData = document.querySelectorAll('.inputData');
 let fileList = [];
 
 
-let test = false;
+let test = true;
 
 const debugData = () => {
     inputData[0].value = "Emultinet Sp. Z.O.O";
