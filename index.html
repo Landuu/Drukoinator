@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Generator druków wpłat</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+</head>
+
+<body>
+    <div class="container">
+        <div>
+            <label class="fileInputLabel" for="fileInput">Wczytaj dane..</label>
+            <input id="fileInput" type="file" class="add-data" accept=".json" hidden>
+        </div>
+        <div class="row mt-3">
+            <div class="col-12 text-center">
+                <h3>Generator druków wpłat</h3>
+            </div>
+        </div>
+        <div class="row mt-1">
+            <div class="col-6">
+                <form>
+                    <div class="form-group">
+                        <label for="nazwaOdbiorcy">Nazwa odbiorcy</label>
+                        <input type="text" class="form-control inputData" name="nazwaOdbiorcy" id="nazwaOdbiorcy"
+                            placeholder="T-Mobile/Cyfrowy Polsat/Emultinet">
+                        <label for="nazwaOdbiorcy2">Nazwa odbiorcy cd.</label>
+                        <input type="text" class="form-control inputData" name="nazwaOdbiorcy2" id="nazwaOdbiorcy2"
+                            placeholder="Wiosenna 47c, 40-011 Katowice">
+                        <label for="rachunekOdbiorcy">Rachunek odbiorcy</label>
+                        <input type="text" class="form-control inputData" name="rachunekOdbiorcy" id="rachunekOdbiorcy"
+                            placeholder="45 4345 1321 4595 8843 0000 1111" maxlength="32">
+                        <label for="kwota">Kwota</label>
+                        <input type="text" class="form-control inputData" name="kwota" id="kwota" placeholder="79,90">
+                        <label for="kwotaSlownie">Kwota słownie</label>
+                        <input type="text" class="form-control inputData" name="kwotaSlownie" id="kwotaSlownie"
+                            placeholder="siedemdziesiąt dziewięć złotych dziewięćdziesiąt groszy">
+                        <label for="nazwaZleceniodawcy">Nazwa zleceniodawcy</label>
+                        <input type="text" class="form-control inputData" name="nazwaZleceniodawcy"
+                            id="nazwaZleceniodawcy" placeholder="Kowalski Jan">
+                        <label for="nazwaZleceniodawcy2">Nazwa zleceniodawcy cd.</label>
+                        <input type="text" class="form-control inputData" name="nazwaZleceniodawcy2"
+                            id="nazwaZleceniodawcy2" placeholder="Kartelowa 47a, 40-401 Katowice">
+                        <label for="tytul">Tytułem</label>
+                        <input type="text" class="form-control inputData" name="tytul" id="tytul"
+                            placeholder="Zapłata za fakturę 44/321/2019">
+                    </div>
+                </form>
+                <div class="d-flex justify-content-between">
+                    <button id="saveInfo" class="add-data">Zapisz druk</button>
+                    <button id="addInfo" class="add-data">Dodaj druk...</button>
+                </div>
+            </div>
+            <div class="col-6">
+                <ul id="documentList" class="list-group mt-3">
+
+                </ul>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-8 offset-2 text-center">
+                <button class="btn btn-dark" id="generateFile">
+                    Pobierz plik PDF
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="loadSavedData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="FileSaver.min.js"></script>
+    <script src="jspdf.min.js"></script>
+    <script src="RobotoMono-normal.js"></script>
+    <script src='main.js'></script>
+</body>
+
+</html>
