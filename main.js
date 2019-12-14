@@ -336,7 +336,7 @@ let inputData = document.querySelectorAll('.inputData');
 let fileList = [];
 
 
-let test = true;
+let test = false;
 
 const debugData = () => {
     inputData[0].value = "Emultinet Sp. Z.O.O";
