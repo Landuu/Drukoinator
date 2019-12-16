@@ -1,0 +1,60 @@
+@font-face {
+    font-family: Tomorrow;
+    src: url('../assets/Tomorrow-Regular.ttf');
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url('../assets/geometry.png');
+    font-family: Tomorrow;
+    width: 100%;
+    height: 100%;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.form-holder {
+    background-color: white;
+    height: 100%;
+    border-radius: 0.2rem;
+    border: 0.5px solid rgba(0, 0, 0, 0.15);
+    box-shadow: 1px 0px 20px -9px rgba(0,0,0,0.75);
+    min-height: 70vh;
+}
+
+.form label {
+    color: lightslategray;
+}
+
+.form input {
+    margin-bottom: 1rem;
+    border: 0;
+    border-bottom: 0.1rem solid rgb(99, 99, 99);
+    padding: 0.5rem 0.5rem;
+    font-family: Tomorrow;
+    font-size: 1rem;
+}
+
+.form input:focus {
+    outline: 0;
+    border-color: coral;
+}
+
+.form input:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+}
