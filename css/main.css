@@ -33,7 +33,7 @@ body {
     height: 100%;
     border-radius: 0.2rem;
     border: 0.5px solid rgba(0, 0, 0, 0.15);
-    box-shadow: 1px 0px 20px -9px rgba(0,0,0,0.75);
+    box-shadow: 1px 0px 20px -9px rgba(0, 0, 0, 0.75);
     min-height: 70vh;
 }
 
@@ -57,4 +57,155 @@ body {
 
 .form input:hover {
     background-color: rgba(0, 0, 0, 0.03);
+}
+
+.actions {
+    position: absolute !important;
+    bottom: 1rem;
+}
+
+.toggle {
+    position: relative;
+    display: block;
+    width: 40px;
+    height: 20px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transform: translate3d(0, 0, 0);
+}
+
+.toggle:before {
+    content: "";
+    position: relative;
+    top: 3px;
+    left: 3px;
+    width: 34px;
+    height: 14px;
+    display: block;
+    background: rgb(199, 199, 199);
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.35);
+    transition: background 0.2s ease;
+}
+
+.toggle span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    display: block;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.35);
+    box-shadow: 0 3px 8px rgba(154, 153, 153, 0.5);
+    transition: all 0.2s ease;
+}
+
+.toggle span:before {
+    content: "";
+    position: absolute;
+    display: block;
+    margin: -18px;
+    width: 56px;
+    height: 56px;
+    /* background: rgba(79, 46, 220, 0.5); */
+    background-color: coral;
+    border-radius: 50%;
+    transform: scale(0);
+    opacity: 1;
+    pointer-events: none;
+}
+
+#cbx:checked+.toggle:before {
+    /* background: #947ADA; */
+    background: rgb(255, 176, 147);
+}
+
+#cbx:checked+.toggle span {
+    /* background: #4F2EDC; */
+    background: coral;
+    transform: translateX(20px);
+    transition: all 0.2s cubic-bezier(0.8, 0.4, 0.3, 1.25), background 0.15s ease;
+    /* box-shadow: 0 3px 8px rgba(79, 46, 220, 0.2); */
+    box-shadow: 0 3px 8px coral;
+}
+
+#cbx:checked+.toggle span:before {
+    transform: scale(1);
+    opacity: 0;
+    transition: all 0.4s ease;
+}
+
+.btn {
+    padding: 0.6rem 1.6rem;
+    font-family: Tomorrow;
+    background: none;
+    border: none;
+    background: rgb(255, 156, 119);
+    font-weight: bold;
+    border-radius: 0.2rem;
+    font-size: 1rem;
+    color: rgb(196, 87, 48);
+}
+
+.btn:hover {
+    cursor: pointer;
+    background: rgb(240, 146, 112);
+    box-shadow: 0px 3px 15px rgba(255, 127, 80, 0.6);
+}
+
+.btn:focus {
+    outline: 0;
+}
+
+.label {
+    font-size: 1.1rem;
+}
+
+.label:hover {
+    cursor: pointer;
+}
+
+.card {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+    background: rgba(0, 0, 0, 0.02);
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+.text-bigger {
+    font-size: 1.1rem;
+}
+
+.card-holder {
+    overflow-y: scroll;
+    max-height: 29rem;
+}
+
+.card-holder::-webkit-scrollbar {
+    width: 0.6rem;
+}
+   
+.card-holder::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 1rem;
+}
+   
+.card-holder::-webkit-scrollbar-thumb {
+    background-color: rgb(255, 156, 119);
+    border-radius: 1rem;
+}
+
+.load-data {
+    font-size: 1.1rem;
+    margin: 0;
+    padding-bottom: 0.5rem;
+}
+
+.load-data:hover {
+    cursor: pointer;
 }
