@@ -322,9 +322,10 @@ body {
     width: 100%;
     min-height: 4rem;
     background: rgb(247, 247, 247);
-    margin-top: 0.5rem;
+    margin-top: 0.1rem;
+    margin-bottom: 0.4rem;
     border: 0.05rem solid gray;
-    border-radius: 0.3rem;
+    border-radius: 0.2rem;
 }
 
 .modal-storage-item h4 {
