@@ -300,7 +300,7 @@ const app = {
             $('#page-mcl').html(`
             <div class="center-flex flex-column" id="page-mcl-out" style="min-height: 100%;">
                 Nie znaleziono danych w pamięci przeglądarki! <br />
-                <p><span class="mcl-cs" id="mcl-cs" onclick="modal.changeStorage($('#mcr'));">Kliknij tutaj</span>, aby zaimportować dane z pliku.</p>
+                <p><span class="mcl-cs noselect" id="mcl-cs" onclick="modal.changeStorage($('#mcr'));">Kliknij tutaj</span>, aby zaimportować dane z pliku.</p>
             </div>
             `);
             return;
