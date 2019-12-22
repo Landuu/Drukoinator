@@ -477,24 +477,50 @@ const StorageManager = {
         reader.readAsText(file);
     },
     loadBackup(data) {
-        data = JSON.parse(data);
-        let keys = Object.keys(data);
-        let i = 0;
-        let alertString = "Czy na pewno chcesz wczytać zakładki: ";
+        $('#modal-upload').val(null);
 
-        while(data[keys[i]]) {
-            alertString += `\n - ${data[keys[i]].nazwa_odbiorcy}`;
-            i++
+        data = JSON.parse(data);
+        let data_arr = Object.values(data);
+
+        obj = this.readData();
+        let obj_arr = Object.values(obj);
+
+        let exists = [];
+
+        for(let i = 0; i < obj_arr.length; i++) {
+            for(let j = 0; j < data_arr.length; j++) {
+                if(obj_arr[i].nazwa_odbiorcy == data_arr[j].nazwa_odbiorcy
+                    && obj_arr[i].nazwa_odbiorcy_2 == data_arr[j].nazwa_odbiorcy_2
+                    && obj_arr[i].rachunek_odbiorcy == data_arr[j].rachunek_odbiorcy) {
+                        exists.push(j)
+                    }
+            }
         }
 
+        console.log(exists);
+
+        for(let i = exists.length - 1; i >= 0; i--) {
+            data_arr.splice(exists[i], 1);
+        }
+
+        if(data_arr.length == 0) {
+            alert('Podane zakładki już istnieją!');
+            return;
+        }
+
+        let alertString = "Dodane zostaną następujące zakładki: ";
+        for(val of data_arr) {
+            alertString += `\n - ${val.nazwa_odbiorcy},`;
+        }
         let conf = confirm(alertString);
         if(conf) {
-            let obj = JSON.stringify(data);
+            obj_arr = [...obj_arr, ...data_arr];
+            let obj = Object.assign({}, obj_arr);
+            obj = JSON.stringify(obj);
             localStorage.setItem('saved_data', obj);
-            alert('Pomyślnie wczytano zakładki!');
+            alert("Pomyślnie wczytano zakładki!");
             app.checkStorage();
-            $('#modal-upload').val(null);
-            modal.changeStorage($('#mcl'))
+            modal.changeStorage($('#mcl'));
         }
     }
 }
