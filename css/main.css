@@ -1,0 +1,383 @@
+@font-face {
+    font-family: Tomorrow;
+    src: url('../assets/Tomorrow-Regular.ttf');
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url('../assets/geometry.png');
+    font-family: Tomorrow;
+    width: 100%;
+    height: 100%;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.center-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.form-holder {
+    background-color: white;
+    height: 100%;
+    border-radius: 0.2rem;
+    border: 0.5px solid rgba(0, 0, 0, 0.15);
+    box-shadow: 1px 0px 20px -9px rgba(0, 0, 0, 0.75);
+    min-height: 70vh;
+}
+
+.form label {
+    color: lightslategray;
+}
+
+.form input {
+    margin-bottom: 1rem;
+    border: 0;
+    border-bottom: 0.1rem solid rgb(99, 99, 99);
+    padding: 0.5rem 0.5rem;
+    font-family: Tomorrow;
+    font-size: 1rem;
+}
+
+.form input:focus {
+    outline: 0;
+    border-color: coral;
+}
+
+.form input:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+.actions {
+    position: absolute !important;
+    bottom: 1rem;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.toggle {
+    position: relative;
+    display: block;
+    width: 40px;
+    height: 20px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transform: translate3d(0, 0, 0);
+}
+
+.toggle:before {
+    content: "";
+    position: relative;
+    top: 3px;
+    left: 3px;
+    width: 34px;
+    height: 14px;
+    display: block;
+    background: rgb(199, 199, 199);
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.35);
+    transition: background 0.2s ease;
+}
+
+.toggle span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    display: block;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.35);
+    box-shadow: 0 3px 8px rgba(154, 153, 153, 0.5);
+    transition: all 0.2s ease;
+}
+
+.toggle span:before {
+    content: "";
+    position: absolute;
+    display: block;
+    margin: -18px;
+    width: 56px;
+    height: 56px;
+    background-color: coral;
+    border-radius: 50%;
+    transform: scale(0);
+    opacity: 1;
+    pointer-events: none;
+}
+
+#cbx:checked+.toggle:before {
+    background: rgb(255, 176, 147);
+}
+
+#cbx:checked+.toggle span {
+    background: coral;
+    transform: translateX(20px);
+    transition: all 0.2s cubic-bezier(0.8, 0.4, 0.3, 1.25), background 0.15s ease;
+    box-shadow: 0 3px 8px coral;
+}
+
+#cbx:checked+.toggle span:before {
+    transform: scale(1);
+    opacity: 0;
+    transition: all 0.4s ease;
+}
+
+.btn {
+    padding: 0.6rem 1.6rem;
+    font-family: Tomorrow;
+    background: none;
+    border: none;
+    background: rgb(255, 156, 119);
+    font-weight: bold;
+    border-radius: 0.2rem;
+    font-size: 1rem;
+    color: rgb(196, 87, 48);
+}
+
+.btn:hover {
+    cursor: pointer;
+    background: rgb(240, 146, 112);
+    box-shadow: 0px 3px 15px rgba(255, 127, 80, 0.6);
+}
+
+.btn:focus {
+    outline: 0;
+}
+
+.label {
+    font-size: 1.1rem;
+}
+
+.label:hover {
+    cursor: pointer;
+}
+
+.card {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+    background: rgba(0, 0, 0, 0.02);
+    z-index: 1;
+}
+
+.card:hover {
+    border-color: coral;
+    cursor: pointer;
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+.text-bigger {
+    font-size: 1.1rem;
+}
+
+.card-holder {
+    overflow-y: scroll;
+    max-height: 29rem;
+    min-width: 100%;
+}
+
+.card-holder::-webkit-scrollbar {
+    width: 0.6rem;
+}
+   
+.card-holder::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 1rem;
+}
+   
+.card-holder::-webkit-scrollbar-thumb {
+    background-color: rgb(255, 156, 119);
+    border-radius: 1rem;
+}
+
+.load-data {
+    font-size: 1.1rem;
+    margin: 0;
+    padding-bottom: 0.5rem;
+}
+
+.load-data:hover {
+    cursor: pointer;
+}
+
+.modal {
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    z-index: 20;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    max-width: 55% !important;
+    border-radius: 0.3rem;
+}
+
+.modal-close {
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+#modal-close-alt {
+    width: 100%;
+    height: 100%;
+    z-index: 11;
+}
+
+.modal-title {
+    font-size: 1.2rem;
+}
+
+.mcl, .mcr {
+    border-bottom: 1px solid black;
+    border-collapse: collapse;
+}
+
+.mcl:hover, .mcr:hover {
+    cursor: pointer;
+}
+
+.mcl {
+    border-right: 1px solid black;
+    border-collapse: collapse;
+    
+}
+
+.mcr {
+    border-left: 1px solid black;
+    border-collapse: collapse;
+}
+
+.mc-active {
+    background: rgb(255, 146, 106);
+    color: rgb(161, 65, 30);
+    font-weight: bold;
+}
+
+.page-mcl, .page-mcr {
+    min-height: 20rem;
+    max-height: 30rem;
+    overflow-y: scroll;
+}
+
+.page-mcl::-webkit-scrollbar, .page-mcr::-webkit-scrollbar {
+    width: 0.6rem;
+}
+   
+.page-mcl::-webkit-scrollbar-track, .page-mcr::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+   
+.page-mcl::-webkit-scrollbar-thumb, .page-mcr::-webkit-scrollbar-thumb {
+    background-color: rgb(255, 156, 119);
+}
+
+.mcl-cs {
+    color: coral;
+}
+
+.mcl-cs:hover {
+    cursor: pointer;
+}
+
+.modal-storage-item {
+    width: 100%;
+    min-height: 4rem;
+    background: rgb(247, 247, 247);
+    margin-top: 0.1rem;
+    margin-bottom: 0.4rem;
+    border: 0.05rem solid gray;
+    border-radius: 0.2rem;
+}
+
+.modal-storage-item h4 {
+    margin: 0.3rem
+}
+
+.mst-title {
+    margin: 0.3rem 0.5rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.mst-text {
+    margin: 0.3rem 0.5rem;
+}
+
+.modal-storage-item:hover {
+    border-color: coral;
+    cursor: pointer;
+}
+
+.modal-del, .modal-fill {
+    margin-top: 0.5rem;
+    width: 69%;
+    margin-left: 1%;
+    border-radius: 0.2rem;
+}
+
+.modal-del {
+    background: rgb(209, 17, 17);
+    color: white;
+}
+
+.modal-fill {
+    background: rgb(51, 175, 247);
+    color: white;
+}
+
+.modal-backup {
+    width: 29%;
+    margin-right: 1%;
+    margin-top: 0.5rem;
+    border-radius: 0.2rem;
+    background-color: gray;
+    color: white;
+}
+
+.modal-backup:hover {
+    cursor: pointer;
+}
+
+.modal-fill:hover, .modal-del:hover {
+    cursor: pointer;
+}
