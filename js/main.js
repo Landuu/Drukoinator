@@ -321,8 +321,8 @@ const app = {
         
         let html = `
             <div class="d-flex">
-                <div id="modal-backup" class="modal-backup center-flex p-2" onclick="StorageManager.saveBackup()">Pobierz zakładki</div>
-                <div id="modal-mode" class="${quickFix[0]} center-flex p-2" onclick="app.toggleDelete()">${quickFix[1]}</div>
+                <div id="modal-backup" class="modal-backup center-flex p-2 noselect" onclick="StorageManager.saveBackup()">Pobierz zakładki</div>
+                <div id="modal-mode" class="${quickFix[0]} center-flex p-2 noselect" onclick="app.toggleDelete()">${quickFix[1]}</div>
             </div>
             <hr />
             <div class="d-flex flex-column">
@@ -392,6 +392,24 @@ const app = {
             $('#modal-mode').removeClass('modal-del');
             $('#modal-mode').addClass('modal-fill');
             $('#modal-mode').html('Tryb wybierania');
+        }
+    },
+    fixInput() {
+        let kwota = $('#kwota').val();
+        if(kwota == "") {
+            return
+        }
+        if(!kwota.includes(',')) {
+            kwota += ",00";
+        }
+        $('#kwota').val(kwota);
+    },
+    clearForm() {
+        let conf = confirm('Czy na pewno chcesz wyczyścić formularz?');
+        if(conf) {
+            $('.payment-input').each(function() {
+                $(this).val('');
+            });
         }
     }
 }
@@ -519,22 +537,11 @@ $('#mcr').click(function() {
 $('#modal-upload').change(StorageManager.readBackup);
 
 $('#kwota').blur(() => {
-    let kwota = $('#kwota').val();
-    if(kwota == "") {
-        return
-    }
-    if(!kwota.includes(',')) {
-        kwota += ",00";
-    }
-    $('#kwota').val(kwota);
+    app.fixInput();
 });
 
 $('#form-clear').click(() => {
-    if(confirm('Czy chciałbyś wyczyścić formularz?')) {
-        $('.payment-input').each(function() {
-            $(this).val('');
-        });
-    } 
+    app.clearForm();
 });
 
 $('#generate').click(() => {
@@ -543,12 +550,6 @@ $('#generate').click(() => {
 
 $(document).keyup((e) => {
     if(e.keyCode == 36) {
-        if(confirm('Czy chciałbyś wyczyścić formularz?')) {
-            $('.payment-input').each(function() {
-                $(this).val('');
-            });
-        } 
-    } else if(e.keyCode == 105) {
         let i = 0;
         const vals = [
             "Emultinet Sp. z.o.o.",
@@ -556,9 +557,9 @@ $(document).keyup((e) => {
             "47 1111 2222 3333 4488 5577 6600",
             "50,00",
             "Pięćdziesiąt złotych zero groszy",
-            "Wiercigroch Małgorzata",
-            "Turystyczna 72, 34-371 Ujsoły",
-            "Zapłata za fakturę FS/4214/2019"
+            "",
+            "",
+            "Zapłata za fakturę"
         ];
         $('.payment-input').each(function() {
             $(this).val(vals[i]);
@@ -570,25 +571,4 @@ $(document).keyup((e) => {
 //Input mask
 $(document).ready(() => {
     $('#rachunek_odbiorcy').mask('00 0000 0000 0000 0000 0000 0000');
-    
 });
-
-
-let test = false;
-if(test) {
-    app.print_list.push({
-        nazwa_odbiorcy: "Emultinet Sp. z.o.o.",
-        //nazwa_odbiorcy: "T-Mobile Polska S.A.",
-        nazwa_odbiorcy_2: "Rycerka Górna 283c, 34-473 Rycerka Górna",
-        rachunek_odbiorcy: "47 1111 2222 3333 4488 5577 6600",
-        kwota: "50,00",
-        kwota_slownie: "Pięćdziesiąt złotych zero groszy",
-        //kwota_slownie: "Siedemdziesiąt dziewięć złotych pięćdziesiąt osiem groszy",
-        nazwa_zleceniodawcy: "Wiercigroch Małgorzata",
-        nazwa_zleceniodawcy_2: "Turystyczna 72, 34-371 Ujsoły",
-        tytul: "Zapłata za fakturę FS/4214/2019"
-    });
-    app.generate();
-}
-
-
