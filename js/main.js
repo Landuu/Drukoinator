@@ -159,7 +159,9 @@ const app = {
         values.is_save = is_save;
         this.print_list.push(values);
         this.refreshList();
-        StorageManager.saveData(values);
+        if(is_save && !is_empty) {
+            StorageManager.saveData(values);
+        }
     },
     removeFromList(id) {
         const list = this.print_list;
@@ -275,19 +277,19 @@ const app = {
 
             //Pokwitowanie dla zleceniodawcy
             doc.setFontSize(10);
-            doc.text(receipt.nazwaOdbiorcyL1, 6, offset + 17.6);
-            doc.text(receipt.nazwaOdbiorcyL2, 6, offset + 24);
-            doc.text(receipt.nazwaOdbiorcyL3, 6, offset + 30.4);
+            doc.text(receipt.nazwaOdbiorcyL1, 6, offset + 17.6); //Pierwsza linia nazwy odbiorcy
+            doc.text(receipt.nazwaOdbiorcyL2, 6, offset + 24); //Druga linia nazwy odbiorcy
+            doc.text(receipt.nazwaOdbiorcyL3, 6, offset + 30.4); //Trzecia linia nazwy odbiorcy
             doc.setFontSize(8.5);
-            doc.text(receipt.default('rachunek_odbiorcy'), 6, offset + 41.1);
+            doc.text(receipt.default('rachunek_odbiorcy'), 6, offset + 41.1); //Rachunek odbiorcy
             doc.setFontSize(10);
-            doc.text(receipt.nazwaZleceniodawcyL1, 6, offset + 50.8);
-            doc.text(receipt.nazwaZleceniodawcyL2, 6, offset + 57.8);
-            doc.text(receipt.nazwaZleceniodawcyL3, 6, offset + 64.3);
+            doc.text(receipt.nazwaZleceniodawcyL1, 6, offset + 50.8); //Pierwsza linia nazwy zleceniodawcy
+            doc.text(receipt.nazwaZleceniodawcyL2, 6, offset + 57.8); //Druga linia nazwy zleceniodawcy
+            doc.text(receipt.nazwaZleceniodawcyL3, 6, offset + 64.3); //Trzecia linia nazwy zleceniodawcy
             doc.setFontSize(8.5);
-            doc.text(receipt.tytul, 6, offset + 73);
+            doc.text(receipt.tytul, 6, offset + 73); //Skrócony tytuł przelewu
             doc.setFontSize(10);
-            doc.text(receipt.kwota, 6, offset + 89.3);
+            doc.text(receipt.kwota, 6, offset + 89.3); //Kwota przelewu
 
             offset += 165;
         }
@@ -347,8 +349,6 @@ const app = {
         }
         html += '</div>';
         $('#page-mcl').html(html);
-
-        
     },
     modalAction(id) {
         switch(modal.deleteMode) {
@@ -415,37 +415,6 @@ const app = {
 }
 
 const StorageManager = {
-    saveData(data) {
-        let obj = localStorage.getItem('saved_data');
-        let index;
-        
-        if(obj != null) {
-            obj = JSON.parse(obj);
-            let i = 0;
-
-            let keys = Object.keys(obj);
-            while(obj[keys[i]]) {
-                if(JSON.stringify(obj[keys[i]]) == JSON.stringify(data))
-                    return
-                i++;
-            }
-
-            index = i;
-        } else {
-            obj = {};
-            index = 0;
-        }
-            
-        if(data.is_empty == false)
-            obj[index] = data;
-        else
-            return
-
-        obj = JSON.stringify(obj);
-        localStorage.setItem('saved_data', obj);
-        alert('Zapisano zakładkę: ' + data.nazwa_odbiorcy);
-        $('#cbx').prop('checked', false);
-    },
     readData() {
         let obj = localStorage.getItem('saved_data');
 
@@ -455,6 +424,34 @@ const StorageManager = {
         obj = JSON.parse(obj);
         return obj;
     },
+    saveData(data) {
+        let obj = this.readData();
+        let arr = Object.values(obj);
+        let exists = false;
+        $('#cbx').prop('checked', false);
+        
+        for(let i = 0; i < arr.length; i++) {
+            if(arr[i].nazwa_odbiorcy == data.nazwa_odbiorcy 
+                && arr[i].nazwa_odbiorcy_2 == data.nazwa_odbiorcy_2 
+                && arr[i].rachunek_odbiorcy == data.rachunek_odbiorcy) {
+                    exists = true;
+                    break;
+                }
+        }
+
+        if(exists) {
+            alert('Podobna zakładka już istnieje!');
+            return;
+        }
+
+        arr.push(data);
+        obj = Object.assign({}, arr);
+        
+        obj = JSON.stringify(obj);
+        localStorage.setItem('saved_data', obj);
+        alert('Zapisano zakładkę: ' + data.nazwa_odbiorcy);
+
+    },
     deleteData(obj, index) {
         if(obj == null)
             return;
@@ -463,7 +460,7 @@ const StorageManager = {
         localStorage.setItem('saved_data', obj);
     },
     saveBackup() {
-        let obj = StorageManager.readData();
+        let obj = this.readData();
         obj = JSON.stringify(obj);
         let blob = new Blob([obj], {type: "application/json; charset=utf-8"});
         saveAs(blob, 'drukointator-backup');
@@ -475,7 +472,6 @@ const StorageManager = {
         let reader = new FileReader();
         reader.onload = (e) => {
             let data = e.target.result;
-            //this.loadBackup(data);
             StorageManager.loadBackup(data);
         };
         reader.readAsText(file);
@@ -534,7 +530,9 @@ $('#mcr').click(function() {
     modal.changeStorage(this);
 });
 
-$('#modal-upload').change(StorageManager.readBackup);
+$('#modal-upload').change(
+    StorageManager.readBackup
+);
 
 $('#kwota').blur(() => {
     app.fixInput();
@@ -546,26 +544,6 @@ $('#form-clear').click(() => {
 
 $('#generate').click(() => {
     app.generate();
-});
-
-$(document).keyup((e) => {
-    if(e.keyCode == 36) {
-        let i = 0;
-        const vals = [
-            "Emultinet Sp. z.o.o.",
-            "Rycerka Górna 283c, 34-473 Rycerka Górna",
-            "47 1111 2222 3333 4488 5577 6600",
-            "50,00",
-            "Pięćdziesiąt złotych zero groszy",
-            "",
-            "",
-            "Zapłata za fakturę"
-        ];
-        $('.payment-input').each(function() {
-            $(this).val(vals[i]);
-            i++;
-        });
-    }
 });
 
 //Input mask
