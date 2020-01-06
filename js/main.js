@@ -242,7 +242,7 @@ const app = {
         doc.setFontSize(11);
 
         const pattern = new Image();
-        pattern.src = '../assets/pattern.png';
+        pattern.src = './assets/pattern.png';
 
         let offset = 0;
         let counter = 0;
