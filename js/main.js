@@ -181,7 +181,7 @@ const app = {
                     </div>
                     <div class="uk-width-auto flex-vertical-center">
                         <hr class="uk-divider-vertical uk-padding-small uk-margin-remove">
-                        <button name="${list_id}" onclick="app.removeFromList(this.attributes['name'].value)" class="uk-button uk-button-text">
+                        <button name="${list_id}" onclick="app.removeFromList(this.attributes['name'].value)" class="uk-button uk-button-text flex-vertical-center">
                             <span uk-icon="trash"></span> Usuń
                         </button>
                     </div>
@@ -230,7 +230,7 @@ const app = {
                     </div>
                     <div class="uk-width-auto flex-vertical-center">
                         <hr class="uk-divider-vertical uk-padding-small uk-margin-remove">
-                        <button name="${list_id}" onclick="app.removeFromList(this.attributes['name'].value)" class="uk-button uk-button-text">
+                        <button name="${list_id}" onclick="app.removeFromList(this.attributes['name'].value)" class="uk-button uk-button-text flex-vertical-center">
                             <span uk-icon="trash"></span> Usuń
                         </button>
                     </div>
