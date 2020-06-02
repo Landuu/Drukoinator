@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Generator druków wpłat</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='css/main.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='css/bootstrap-grid.min.css'>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="noselect">Generator druków wpłat</h1>
+            </div>
+        </div>
+        <div class="row mt-1 form-holder">
+            <div class="col-12 col-lg-5 p-4">
+                <form class="form d-flex flex-column flex">
+                    <label for="nazwa_odbiorcy">Nazwa odbiorcy</label>
+                    <input type="text" class='payment-input' name="nazwa_odbiorcy" id="nazwa_odbiorcy" spellcheck="false" autocomplete="off">
+
+                    <label for="nazwa_odbiorcy_2">Nazwa odbiorcy cd.</label>
+                    <input type="text" class='payment-input' name="nazwa_odbiorcy_2" id="nazwa_odbiorcy_2" spellcheck="false" autocomplete="off">
+
+                    <label for="rachunek_odbiorcy">Rachunek odbiorcy</label>
+                    <input type="text" class='payment-input' name="rachunek_odbiorcy" id="rachunek_odbiorcy" spellcheck="false" autocomplete="off">
+
+                    <label for="kwota">Kwota</label>
+                    <input type="text" class='payment-input' name="kwota" id="kwota" spellcheck="false" autocomplete="off">
+
+                    <label for="kwota_slownie">Kwota słownie</label>
+                    <input type="text" class='payment-input' name="kwota_slownie" id="kwota_slownie" spellcheck="false" autocomplete="off">
+
+                    <label for="nazwa_zleceniodawcy">Nazwa zleceniodawcy</label>
+                    <input type="text" class='payment-input' name="nazwa_zleceniodawcy" id="nazwa_zleceniodawcy" spellcheck="false" autocomplete="off">
+
+                    <label for="nazwa_zleceniodawcy_2">Nazwa zleceniodawcy cd.</label>
+                    <input type="text" class='payment-input' name="nazwa_zleceniodawcy_2" id="nazwa_zleceniodawcy_2" spellcheck="false" autocomplete="off">
+
+                    <label for="tytul">Tytułem</label>
+                    <input type="text" class='payment-input' name="tytul" id="tytul" spellcheck="false" autocomplete="off">
+                </form>
+            </label>
+        </div>
+        <div class="col-12 col-lg-7 p-4">
+            <div class="row">
+                <div class="col-12 d-flex justify-content-between">
+                    <div class="load-data noselect" id="form-clear">Wyczyść formularz [X]</div>
+                    <div class="load-data noselect" id="modal-show">Wczytaj dane wpłaty >></div>
+                </div>
+            </div>
+            <div class="row">
+                <div id="print-list" class="card-holder">
+                    <div class="col-12">
+                        <h4>Lista jest pusta! Użyj formularza, aby dodać druki wpłat!</h4>
+                    </div>
+                </div>
+                <div class="col-12 p-4 actions d-flex justify-content-between">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <input type="checkbox" id="cbx" class="d-none">
+                        <label for="cbx" class="toggle"><span></span></label>
+                        <label for="cbx" class="ml-1 label noselect">Zapisz dane</label>
+                        <button id="add" class="btn ml-2 noselect">Dodaj druk</button>
+                    </div>
+                    <div>
+                        <button id="generate" class="btn noselect">Pobierz PDF</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal d-none" id="modal">
+        <div id="modal-close-alt"></div>
+        <div class="modal-content container">
+            <div class="row">
+                <div class="col-10">
+                    <p class="modal-title my-2 noselect">Wczytywanie danych wpłat</p>
+                </div>
+                <div class="col-2 text-right">
+                    <span class="modal-close noselect" id="modal-close">&times</span>
+                </div>
+                <div class="col-12">
+                    <hr style="margin: 0;"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 py-3 mc mcl text-center noselect" id="mcl">
+                    Dane przeglądarki
+                </div>
+                <div class="col-6 py-3 mc mcr text-center noselect" id="mcr">
+                    Wczytaj z pliku
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 d-none page-mcl" id="page-mcl">
+                    
+                </div>
+                <div class="col-12 d-none page-mcr" id="page-mcr">
+                    <div class="center-flex flex-column" style="min-height: 100%;">
+                        <span>Wybierz plik kopii zapasowej</span>
+                        <input id="modal-upload" class="mt-3 ml-5" type="file">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/jquery.mask.min.js"></script> 
+    <script src="js/jspdf.min.js"></script>
+    <script src="assets/Tomorrow-jsPDF-normal.js"></script>
+    <script src="js/FileSaver.min.js"></script>
+    <script src='js/main.js'></script>
+</body>
+</html>

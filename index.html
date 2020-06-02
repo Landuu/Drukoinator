@@ -3,113 +3,199 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Generator druków wpłat</title>
+    <title>Generator czarno-białych druków wpłat - Drukoinator</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='css/main.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='css/bootstrap-grid.min.css'>
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.3/dist/css/uikit.min.css" />
+    <link rel="stylesheet" href="css/main.css" />
 </head>
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-12 text-center">
-                <h1 class="noselect">Generator druków wpłat</h1>
-            </div>
-        </div>
-        <div class="row mt-1 form-holder">
-            <div class="col-12 col-lg-5 p-4">
-                <form class="form d-flex flex-column flex">
-                    <label for="nazwa_odbiorcy">Nazwa odbiorcy</label>
-                    <input type="text" class='payment-input' name="nazwa_odbiorcy" id="nazwa_odbiorcy" spellcheck="false" autocomplete="off">
-
-                    <label for="nazwa_odbiorcy_2">Nazwa odbiorcy cd.</label>
-                    <input type="text" class='payment-input' name="nazwa_odbiorcy_2" id="nazwa_odbiorcy_2" spellcheck="false" autocomplete="off">
-
-                    <label for="rachunek_odbiorcy">Rachunek odbiorcy</label>
-                    <input type="text" class='payment-input' name="rachunek_odbiorcy" id="rachunek_odbiorcy" spellcheck="false" autocomplete="off">
-
-                    <label for="kwota">Kwota</label>
-                    <input type="text" class='payment-input' name="kwota" id="kwota" spellcheck="false" autocomplete="off">
-
-                    <label for="kwota_slownie">Kwota słownie</label>
-                    <input type="text" class='payment-input' name="kwota_slownie" id="kwota_slownie" spellcheck="false" autocomplete="off">
-
-                    <label for="nazwa_zleceniodawcy">Nazwa zleceniodawcy</label>
-                    <input type="text" class='payment-input' name="nazwa_zleceniodawcy" id="nazwa_zleceniodawcy" spellcheck="false" autocomplete="off">
-
-                    <label for="nazwa_zleceniodawcy_2">Nazwa zleceniodawcy cd.</label>
-                    <input type="text" class='payment-input' name="nazwa_zleceniodawcy_2" id="nazwa_zleceniodawcy_2" spellcheck="false" autocomplete="off">
-
-                    <label for="tytul">Tytułem</label>
-                    <input type="text" class='payment-input' name="tytul" id="tytul" spellcheck="false" autocomplete="off">
-                </form>
-            </label>
-        </div>
-        <div class="col-12 col-lg-7 p-4">
-            <div class="row">
-                <div class="col-12 d-flex justify-content-between">
-                    <div class="load-data noselect" id="form-clear">Wyczyść formularz [X]</div>
-                    <div class="load-data noselect" id="modal-show">Wczytaj dane wpłaty >></div>
-                </div>
-            </div>
-            <div class="row">
-                <div id="print-list" class="card-holder">
-                    <div class="col-12">
-                        <h4>Lista jest pusta! Użyj formularza, aby dodać druki wpłat!</h4>
-                    </div>
-                </div>
-                <div class="col-12 p-4 actions d-flex justify-content-between">
-                    <div class="d-flex justify-content-center align-items-center">
-                        <input type="checkbox" id="cbx" class="d-none">
-                        <label for="cbx" class="toggle"><span></span></label>
-                        <label for="cbx" class="ml-1 label noselect">Zapisz dane</label>
-                        <button id="add" class="btn ml-2 noselect">Dodaj druk</button>
-                    </div>
-                    <div>
-                        <button id="generate" class="btn noselect">Pobierz PDF</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal d-none" id="modal">
-        <div id="modal-close-alt"></div>
-        <div class="modal-content container">
-            <div class="row">
-                <div class="col-10">
-                    <p class="modal-title my-2 noselect">Wczytywanie danych wpłat</p>
-                </div>
-                <div class="col-2 text-right">
-                    <span class="modal-close noselect" id="modal-close">&times</span>
-                </div>
-                <div class="col-12">
-                    <hr style="margin: 0;"/>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6 py-3 mc mcl text-center noselect" id="mcl">
-                    Dane przeglądarki
-                </div>
-                <div class="col-6 py-3 mc mcr text-center noselect" id="mcr">
-                    Wczytaj z pliku
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 d-none page-mcl" id="page-mcl">
-                    
-                </div>
-                <div class="col-12 d-none page-mcr" id="page-mcr">
-                    <div class="center-flex flex-column" style="min-height: 100%;">
-                        <span>Wybierz plik kopii zapasowej</span>
-                        <input id="modal-upload" class="mt-3 ml-5" type="file">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     
+    <nav class="uk-navbar-container uk-margin uk-visible@m" uk-navbar>
+        <div class="uk-navbar-center">
+            <div class="uk-navbar-center-left">
+                <ul class="uk-navbar-nav">
+                    <li class="uk-margin-right"><a href="../"> <span uk-icon="arrow-left"></span> landu.ml</a></li>
+                </ul>
+            </div>
+            <a class="uk-navbar-item uk-logo" href="#">Generator druków wpłat</a>
+            <div class="uk-navbar-center-right">
+                <ul class="uk-navbar-nav">
+                    <li class="uk-margin-left"><a href="https://github.com/Landuu/drukoinator"> <span uk-icon="github"></span> &nbsp GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <nav class="uk-navbar uk-navbar-container uk-hidden@m">
+        <div class="uk-navbar-left">
+            <a class="uk-navbar-item uk-logo" href="#">Generator druków wpłat</a>
+        </div>
+        <div class="uk-navbar-right">
+            <a class="uk-navbar-toggle" href="#" uk-toggle="target: #offcanvas-overlay">
+                <span uk-navbar-toggle-icon></span> <span class="uk-margin-small-left">Menu</span>
+            </a>
+        </div>
+        <!-- Nawigacja dla telefonów/tabletó -->
+        <div id="offcanvas-overlay" uk-offcanvas="overlay: true; flip: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <ul class="uk-list">
+                    <li class="uk-text-center uk-padding-small">
+                        <a class="uk-link-text" href="../">
+                            <span uk-icon="arrow-left"></span> landu.ml
+                        </a>
+                    </li>
+                    <li class="uk-text-center uk-padding-small">
+                        <a class="uk-link-text" href="https://github.com/Landuu/drukoinator">
+                            <span uk-icon="github"></span> GitHub
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="uk-container">
+        <div class="uk-flex-center" uk-grid>
+            <div class="uk-width-3-4@m">
+                <div class="uk-card uk-card-default">
+                    <div class="uk-card-header flex-space-between">
+                        <h4 class="uk-margin-remove">Lista druków wpłat</h5>
+                        <button class="uk-button uk-button-primary flex-vertical-center" href="#modal_add" uk-toggle>
+                            <span class="uk-margin-small-right" uk-icon="plus"></span> Dodaj druk
+                        </button>
+                    </div>
+                    <div class="uk-card-body uk-text-center uk-overflow-auto card-height">
+                        <div id="print-list" uk-grid>
+                            <div class="uk-width-1-1">
+                                <p>Lista jest pusta!</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="uk-card-footer uk-padding-remove">
+                        <button id="generate" class="uk-button uk-button-secondary uk-button-large uk-width-1-1">
+                            <span uk-icon="download"></span> Pobierz PDF
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modale -->
+    <div id="modal_add" uk-modal>
+        <div class="uk-modal-dialog uk-width-1-2@l">
+            <button class="uk-modal-close-default" type="button" uk-close></button>
+            <div class="uk-modal-header flex-space-between flex-vertical-center">
+                <span class="uk-modal-title">Dane wpłaty</span>
+                <div class="uk-inline">
+                    <button class="uk-button uk-button-text uk-margin-right " type="button">
+                        Wczytaj dane <span uk-icon="triangle-down"></span>
+                    </button>
+                    <div uk-dropdown="mode: click; pos: bottom-right">
+                        <ul class="uk-nav uk-dropdown-nav uk-text-right">
+                            <li class="flex-space-between flex-vertical-center">
+                                <a uk-icon="icon: trash; ratio: 0.8"></a>
+                                <a href="#">Item</a>
+                            </li>
+                            <li class="flex-space-between flex-vertical-center">
+                                <a uk-icon="icon: trash; ratio: 0.8"></a>
+                                <a href="#">Item</a>
+                            </li>
+                            <li class="flex-space-between flex-vertical-center">
+                                <a uk-icon="icon: trash; ratio: 0.8"></a>
+                                <a href="#">Item</a>
+                            </li>
+                            <li class="flex-space-between flex-vertical-center">
+                                <a uk-icon="icon: trash; ratio: 0.8"></a>
+                                <a href="#">Item</a>
+                            </li>
+                            <li class="uk-nav-divider"></li>
+                            <li class="flex-space-between flex-vertical-center">
+                                <span uk-icon="icon: push; ratio: 0.8"></span>
+                                <a href="#">Wczytaj zakładki</a>
+                            </li>
+                            <li class="flex-space-between flex-vertical-center">
+                                <span uk-icon="icon: pull; ratio: 0.8"></span>
+                                <a href="#">Pobierz zakładki</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="uk-modal-body">
+                <form class="uk-form-horizontal uk-margin-large">
+
+                    <div class="uk-margin-small">
+                        <label class="uk-form-label" for="nazwa_odbiorcy">Nazwa odbiorcy</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input payment-input" name="nazwa_odbiorcy" id="nazwa_odbiorcy" type="text">
+                        </div>
+                    </div>
+                    <div class="uk-margin-small">
+                        <label class="uk-form-label" for="nazwa_odbiorcy_2">Nazwa odbiorcy cd.</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input payment-input" name="nazwa_odbiorcy_2" id="nazwa_odbiorcy_2" type="text">
+                        </div>
+                    </div>
+                    <div class="uk-margin-small">
+                        <label class="uk-form-label" for="rachunek_odbiorcy">Rachunek odbiorcy</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input payment-input" name="rachunek_odbiorcy" id="rachunek_odbiorcy" type="text">
+                        </div>
+                    </div>
+                    <div class="uk-margin-small">
+                        <label class="uk-form-label" for="kwota">Kwota</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input payment-input" name="kwota" id="kwota" type="text">
+                        </div>
+                    </div>
+                    <div class="uk-margin-small">
+                        <label class="uk-form-label" for="kwota_slownie">Kwota słownie</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input payment-input" name="kwota_slownie" id="kwota_slownie" type="text">
+                        </div>
+                    </div>
+                    <div class="uk-margin-small">
+                        <label class="uk-form-label" for="nazwa_zleceniodawcy">Nazwa zleceniodawcy</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input payment-input" name="nazwa_zleceniodawcy" id="nazwa_zleceniodawcy" type="text">
+                        </div>
+                    </div>
+                    <div class="uk-margin-small">
+                        <label class="uk-form-label" for="nazwa_zleceniodawcy_2">Nazwa zleceniodawcy cd.</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input payment-input" name="nazwa_zleceniodawcy_2" id="nazwa_zleceniodawcy_2" type="text">
+                        </div>
+                    </div>
+                    <div class="uk-margin-small">
+                        <label class="uk-form-label" for="tytul">Tytułem</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input payment-input" name="tytul" id="tytul" type="text">
+                        </div>
+                    </div>
+                
+                
+                </form>
+            </div>
+            <div class="uk-modal-footer uk-text-right flex-space-between">
+                <button id="form-clear" class="uk-button uk-button-danger" type="button">Wyczyść formularz</button>
+                <div>
+                    <button class="uk-button uk-button-secondary" type="button">Zapisz</button>
+                    <button id="add" class="uk-button uk-button-primary" type="button">+ Dodaj</button>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+
+    <!-- UIkit JS -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.3/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.3/dist/js/uikit-icons.min.js"></script>
+    <!-- Inne -->
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/jquery.mask.min.js"></script> 
     <script src="js/jspdf.min.js"></script>
@@ -118,3 +204,54 @@
     <script src='js/main.js'></script>
 </body>
 </html>
+
+
+<!-- 
+
+    <div class="uk-width-1-1">
+        <div class="uk-card uk-card-default uk-card-body">
+            <div uk-grid>
+                <div class="uk-width-expand uk-text-left">
+                    <ul class="uk-list cursor-default">
+                        <li>
+                            <span class="uk-text-bold">- Tytułem: </span>
+                            <br />
+                            <span class="uk-margin-left">
+                                Zapłata za fakturę nr FS/1711/2020
+                            </span>
+                        </li>
+                        <li>
+                            <span class="uk-text-bold">- Kwota: </span>
+                            <br />
+                            <span class="uk-margin-left">
+                                50,00zł
+                            </span>
+                        </li>
+                        <li uk-tooltip="title: E-netkomp Sp. z o. o. <br>Ujsolska 9, 34-370 Rajcza <br> 45 8125 0008 9040 0000 0000 0174; pos: left">
+                            <span class="uk-text-bold">- Odbiorca: </span>
+                            <br />
+                            <span class="uk-margin-left">
+                                E-Netkomp Sp. z o. o.
+                            </span>
+                        </li>
+                        <li uk-tooltip="title:  Wiercigroch Bartłomiej <br> Turystyczna 72, 34-371 Ujsoły; pos: left">
+                            <span class="uk-text-bold">- Zleceniodawca: </span>
+                            <br />
+                            <span class="uk-margin-left">
+                                Wiercigroch Bartłomiej
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="uk-width-auto flex-vertical-center">
+                    <hr class="uk-divider-vertical uk-padding-small uk-margin-remove">
+                    <button class="uk-button uk-button-text">
+                        <span uk-icon="trash"></span> Usuń
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+ -->

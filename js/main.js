@@ -85,39 +85,6 @@ class Receipt {
     }
 }
 
-class Modal {
-    constructor(start_page) {
-        this.current_page = start_page;
-        this.deleteMode = false;
-
-        this.changeStorage($('#'+start_page));
-    }
-
-    show() {
-        $('#modal').removeClass('d-none');
-    }
-    hide() {
-        $('#modal').addClass('d-none');
-    }
-    changeStorage(element) {
-        if($(element).hasClass('mc-active'))
-            return;
-        $(".mc").each(function(index) {
-            if($(this).hasClass('mc-active'))
-                $(this).removeClass('mc-active');
-        });
-        $(element).addClass('mc-active');
-
-        this.loadPage($(element).attr('id'));
-    }
-    loadPage(id) {
-        $('#page-' + this.current_page).addClass('d-none');
-        this.current_page = id;
-        $('#page-' + this.current_page).removeClass('d-none');
-    }
-
-}
-
 const app = {
     print_list: [],
     displayError(text , err = []) {
@@ -159,6 +126,7 @@ const app = {
         values.is_save = is_save;
         this.print_list.push(values);
         this.refreshList();
+        UIkit.modal(document.querySelector('#modal_add')).hide();
         if(is_save && !is_empty) {
             StorageManager.saveData(values);
         }
@@ -184,44 +152,70 @@ const app = {
     },
     fillEmptyPayment(list_id) {
         const string = `
-        <div class="col-12" name="${list_id}" onclick="app.removeFromList(this.attributes['name'].value)">
-            <div class="card p-2 mt-2">
-                <div class="row">
-                    <div class="col-12 text-center text-bold text-bigger">
-                        Pusty druk wpłaty
+        <div name="${list_id}" class="uk-width-1-1">
+            <div class="uk-card uk-card-default uk-card-body">
+                <div uk-grid>
+                    <div class="uk-width-expand uk-text-left flex-vertical-center">
+                        <ul class="uk-list cursor-default ">
+                            <li>
+                                Pusty, czarno-białych druk wpłaty, który można wypełnić po wydrukowaniu
+                            </li>
+                        </ul>
                     </div>
-                    <div class="col-12 text-left mt-2">
-                        Wygenerowany zostanie pusty druk wpłaty, który można uzupełnić później.
+                    <div class="uk-width-auto flex-vertical-center">
+                        <hr class="uk-divider-vertical uk-padding-small uk-margin-remove">
+                        <button name="${list_id}" onclick="app.removeFromList(this.attributes['name'].value)" class="uk-button uk-button-text">
+                            <span uk-icon="trash"></span> Usuń
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-        `;
+        `
         $('#print-list').append(string);
     },
     fillValidPayment(obj, list_id) {
         const string = `
-        <div class="col-12" name="${list_id}" onclick="app.removeFromList(this.attributes['name'].value)">
-            <div class="card p-2 mt-2">
-                <div class="row">
-                    <div class="col-12 text-center text-bold text-bigger">
-                        ${obj.tytul}
+        <div name="${list_id}" class="uk-width-1-1">
+            <div class="uk-card uk-card-default uk-card-body">
+                <div uk-grid>
+                    <div class="uk-width-expand uk-text-left">
+                        <ul class="uk-list cursor-default">
+                            <li>
+                                <span class="uk-text-bold">- Tytułem: </span>
+                                <br />
+                                <span class="uk-margin-left">
+                                    ${obj.tytul}
+                                </span>
+                            </li>
+                            <li>
+                                <span class="uk-text-bold">- Kwota: </span>
+                                <br />
+                                <span class="uk-margin-left">
+                                    ${obj.kwota}zł
+                                </span>
+                            </li>
+                            <li uk-tooltip="title: ${obj.nazwa_odbiorcy} <br> ${obj.nazwa_odbiorcy2} <br> ${obj.rachunek_odbiorcy}; pos: left">
+                                <span class="uk-text-bold">- Odbiorca: </span>
+                                <br />
+                                <span class="uk-margin-left">
+                                    ${obj.nazwa_odbiorcy}
+                                </span>
+                            </li>
+                            <li uk-tooltip="title:  ${obj.nazwa_zleceniodawcy} <br> ${obj.nazwa_zleceniodawcy2}; pos: left">
+                                <span class="uk-text-bold">- Zleceniodawca: </span>
+                                <br />
+                                <span class="uk-margin-left">
+                                    ${obj.nazwa_zleceniodawcy}
+                                </span>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="col-9 text-left mt-2">
-                        ${obj.rachunek_odbiorcy}
-                    </div>
-                    <div class="col-3 text-right mt-2">
-                        ${obj.kwota} zł
-                    </div>
-                    <div class="col-6 mt-2">
-                        <span class="text-bigger text-bold">ZLECENIODAWCA</span> <br />
-                        ${obj.nazwa_zleceniodawcy} <br />
-                        ${obj.nazwa_zleceniodawcy_2}
-                    </div>
-                    <div class="col-6 mt-2 text-right">
-                        <span class="text-bigger text-bold">ODBIORCA</span> <br />
-                        ${obj.nazwa_odbiorcy} <br />
-                        ${obj.nazwa_odbiorcy_2}
+                    <div class="uk-width-auto flex-vertical-center">
+                        <hr class="uk-divider-vertical uk-padding-small uk-margin-remove">
+                        <button name="${list_id}" onclick="app.removeFromList(this.attributes['name'].value)" class="uk-button uk-button-text">
+                            <span uk-icon="trash"></span> Usuń
+                        </button>
                     </div>
                 </div>
             </div>
@@ -525,14 +519,13 @@ const StorageManager = {
     }
 }
 
-const modal = new Modal('mcl');
-
 $(document).ready(() => {
     app.checkStorage();
 });
 
 $('#add').click(() => {
     app.prepareInputs();
+    console.log(app.print_list)
 });
 
 $('#modal-show').click(() => {
