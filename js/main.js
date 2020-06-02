@@ -323,7 +323,7 @@ const app = {
         while(obj[keys[i]]) {
             bookmark_list.append(`
                 <li name="${keys[i]}" class="flex-space-between flex-vertical-center">
-                    <a onclick="app.deleteBookmark(this.parentElement.getAttribute('name'))" uk-icon="icon: trash; ratio: 0.8"></a>
+                    <a onclick="app.deleteBookmark(this.parentElement.getAttribute('name'))" uk-icon="icon: trash; ratio: 0.8" class="uk-margin-small-right"></a>
                     <a onclick="app.fillWithBookmark(this.parentElement.getAttribute('name'))">${obj[keys[i]].nazwa_odbiorcy}</a>
                 </li>
             `);
