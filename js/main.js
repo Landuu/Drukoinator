@@ -212,14 +212,14 @@ const app = {
                                     ${obj.kwota}zł
                                 </span>
                             </li>
-                            <li uk-tooltip="title: ${obj.nazwa_odbiorcy} <br> ${obj.nazwa_odbiorcy2} <br> ${obj.rachunek_odbiorcy}; pos: left">
+                            <li uk-tooltip="title: ${obj.nazwa_odbiorcy} <br> ${obj.nazwa_odbiorcy_2} <br> ${obj.rachunek_odbiorcy}; pos: left">
                                 <span class="uk-text-bold">- Odbiorca: </span>
                                 <br />
                                 <span class="uk-margin-left">
                                     ${obj.nazwa_odbiorcy}
                                 </span>
                             </li>
-                            <li uk-tooltip="title:  ${obj.nazwa_zleceniodawcy} <br> ${obj.nazwa_zleceniodawcy2}; pos: left">
+                            <li uk-tooltip="title:  ${obj.nazwa_zleceniodawcy} <br> ${obj.nazwa_zleceniodawcy_2}; pos: left">
                                 <span class="uk-text-bold">- Zleceniodawca: </span>
                                 <br />
                                 <span class="uk-margin-left">
