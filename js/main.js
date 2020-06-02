@@ -341,6 +341,7 @@ const app = {
         $('#nazwa_zleceniodawcy').val(obj.nazwa_zleceniodawcy);
         $('#nazwa_zleceniodawcy_2').val(obj.nazwa_zleceniodawcy_2);
         $('#tytul').val(obj.tytul);
+        UIkit.dropdown(document.querySelector("#modal-dropdown")).hide(0);
     },
     deleteBookmark(id) {
         let obj = StorageManager.readData();
