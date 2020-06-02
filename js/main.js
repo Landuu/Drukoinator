@@ -145,6 +145,7 @@ const app = {
             this.displayError('Aby zapisać zakładkę, popraw następujące pola:',err);
         else {
             StorageManager.saveData(values);
+            app.checkStorage();
         }
     },
     removeFromList(id) {
@@ -307,78 +308,29 @@ const app = {
         doc.save();
     },
     checkStorage(isDel = false) {
+        let bookmark_list = $('#bookmark-list');
+        bookmark_list.html('')
+
         let obj = StorageManager.readData();
         if(obj == null || Object.keys(obj).length == 0) {
-            $('#page-mcl').html(`
-            <div class="center-flex flex-column" id="page-mcl-out" style="min-height: 100%;">
-                Nie znaleziono danych w pamięci przeglądarki! <br />
-                <p><span class="mcl-cs noselect" id="mcl-cs" onclick="modal.changeStorage($('#mcr'));">Kliknij tutaj</span>, aby zaimportować dane z pliku.</p>
-            </div>
-            `);
             return;
         }
         
+        
         let keys = Object.keys(obj);
         let i = 0;
-        let quickFix = [];
-        if(isDel) {
-            quickFix[0] = "modal-del";
-            quickFix[1] = "Tryb usuwania";
-            modal.deleteMode = true;
-        } else {
-            quickFix[0] = "modal-fill";
-            quickFix[1] = "Tryb wybierania";
-            modal.deleteMode = false;
-        }
-        
-        let html = `
-            <div class="d-flex">
-                <div id="modal-backup" class="modal-backup center-flex p-2 noselect" onclick="StorageManager.saveBackup()">Pobierz zakładki</div>
-                <div id="modal-mode" class="${quickFix[0]} center-flex p-2 noselect" onclick="app.toggleDelete()">${quickFix[1]}</div>
-            </div>
-            <hr />
-            <div class="d-flex flex-column">
-        `;
+
         while(obj[keys[i]]) {
-            html += `
-                <div class="modal-storage-item" name="${keys[i]}" onclick="app.modalAction(this.getAttribute('name'))">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <p class="mst-title">${obj[keys[i]].nazwa_odbiorcy}</p>
-                        </div>
-                        <div class="col-md-7 text-right">
-                            <p class="mst-title">${obj[keys[i]].rachunek_odbiorcy}</p>
-                        </div>
-                        <div class="col-12">
-                            <p class="mst-text">${obj[keys[i]].nazwa_odbiorcy_2}</p>
-                        </div>
-                    </div>
-                </div>
-            `;
+            bookmark_list.append(`
+                <li name="${keys[i]}" class="flex-space-between flex-vertical-center">
+                    <a onclick="app.deleteBookmark(this.parentElement.getAttribute('name'))" uk-icon="icon: trash; ratio: 0.8"></a>
+                    <a onclick="app.fillWithBookmark(this.parentElement.getAttribute('name'))">${obj[keys[i]].nazwa_odbiorcy}</a>
+                </li>
+            `);
             i++;
         }
-        html += '</div>';
-        $('#page-mcl').html(html);
     },
-    modalAction(id) {
-        switch(modal.deleteMode) {
-            case true:
-                this.modalDelete(id);
-                break;
-            case false:
-                this.modalFill(id);
-                break;
-        }
-    },
-    modalDelete(id) {
-        let obj = StorageManager.readData();
-        let conf = confirm('Czy na pewno chcesz usunąć zakładkę:  ' + obj[id].nazwa_odbiorcy);
-        if(conf) {
-            StorageManager.deleteData(obj, id);
-            app.checkStorage(true);
-        }
-    },
-    modalFill(id) {
+    fillWithBookmark(id) {
         let obj = StorageManager.readData();
         obj = obj[id];
         $('#nazwa_odbiorcy').val(obj.nazwa_odbiorcy);
@@ -389,19 +341,13 @@ const app = {
         $('#nazwa_zleceniodawcy').val(obj.nazwa_zleceniodawcy);
         $('#nazwa_zleceniodawcy_2').val(obj.nazwa_zleceniodawcy_2);
         $('#tytul').val(obj.tytul);
-        modal.hide();
     },
-    toggleDelete() {
-        if(modal.deleteMode == false) {
-            modal.deleteMode = true;
-            $('#modal-mode').removeClass('modal-fill');
-            $('#modal-mode').addClass('modal-del');
-            $('#modal-mode').html('Tryb usuwania');
-        } else {
-            modal.deleteMode = false;
-            $('#modal-mode').removeClass('modal-del');
-            $('#modal-mode').addClass('modal-fill');
-            $('#modal-mode').html('Tryb wybierania');
+    deleteBookmark(id) {
+        let obj = StorageManager.readData();
+        let conf = confirm('Czy na pewno chcesz usunąć zakładkę:  ' + obj[id].nazwa_odbiorcy);
+        if(conf) {
+            StorageManager.deleteData(obj, id);
+            app.checkStorage(true);
         }
     },
     fixInput() {
@@ -421,6 +367,9 @@ const app = {
                 $(this).val('');
             });
         }
+    },
+    triggerUpload() {
+        $('#modal-upload').trigger('click');
     }
 }
 
@@ -471,6 +420,10 @@ const StorageManager = {
     },
     saveBackup() {
         let obj = this.readData();
+        if(obj == null || Object.keys(obj).length == 0) {
+            alert("Błąd: Nie masz zapisanych zakładek.")
+            return;
+        }
         obj = JSON.stringify(obj);
         let blob = new Blob([obj], {type: "application/json; charset=utf-8"});
         saveAs(blob, 'drukointator-backup');
@@ -530,7 +483,6 @@ const StorageManager = {
             localStorage.setItem('saved_data', obj);
             alert("Pomyślnie wczytano zakładki!");
             app.checkStorage();
-            modal.changeStorage($('#mcl'));
         }
     }
 }
@@ -546,27 +498,6 @@ $('#add').click(() => {
 
 $('#save').click(() => {
     app.saveBookmark();
-});
-
-$('#modal-show').click(() => {
-    app.checkStorage();
-    modal.show();
-});
-
-$('#modal-close').click(() => {
-    modal.hide();
-});
-
-$('#modal-close-alt').click(() => {
-    modal.hide();
-});
-
-$('#mcl').click(function() {
-    modal.changeStorage(this);
-});
-
-$('#mcr').click(function() {
-    modal.changeStorage(this);
 });
 
 $('#modal-upload').change(

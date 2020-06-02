@@ -95,31 +95,38 @@
                         Wczytaj dane <span uk-icon="triangle-down"></span>
                     </button>
                     <div uk-dropdown="mode: click; pos: bottom-right">
+                        <ul id="bookmark-list" class="uk-nav uk-dropdown-nav uk-text-right">
+                            <!-- <li class="flex-space-between flex-vertical-center">
+                                <a uk-icon="icon: trash; ratio: 0.8"></a>
+                                <a href="#">Item</a>
+                            </li>
+                            <li class="flex-space-between flex-vertical-center">
+                                <a uk-icon="icon: trash; ratio: 0.8"></a>
+                                <a href="#">Item</a>
+                            </li>
+                            <li class="flex-space-between flex-vertical-center">
+                                <a uk-icon="icon: trash; ratio: 0.8"></a>
+                                <a href="#">Item</a>
+                            </li>
+                            <li class="flex-space-between flex-vertical-center">
+                                <a uk-icon="icon: trash; ratio: 0.8"></a>
+                                <a href="#">Item</a>
+                            </li> -->
+
+                            
+                        </ul>
                         <ul class="uk-nav uk-dropdown-nav uk-text-right">
-                            <li class="flex-space-between flex-vertical-center">
-                                <a uk-icon="icon: trash; ratio: 0.8"></a>
-                                <a href="#">Item</a>
-                            </li>
-                            <li class="flex-space-between flex-vertical-center">
-                                <a uk-icon="icon: trash; ratio: 0.8"></a>
-                                <a href="#">Item</a>
-                            </li>
-                            <li class="flex-space-between flex-vertical-center">
-                                <a uk-icon="icon: trash; ratio: 0.8"></a>
-                                <a href="#">Item</a>
-                            </li>
-                            <li class="flex-space-between flex-vertical-center">
-                                <a uk-icon="icon: trash; ratio: 0.8"></a>
-                                <a href="#">Item</a>
-                            </li>
                             <li class="uk-nav-divider"></li>
                             <li class="flex-space-between flex-vertical-center">
                                 <span uk-icon="icon: push; ratio: 0.8"></span>
-                                <a href="#">Wczytaj zakładki</a>
+                                <a onclick="app.triggerUpload()">Wczytaj zakładki</a>
                             </li>
                             <li class="flex-space-between flex-vertical-center">
                                 <span uk-icon="icon: pull; ratio: 0.8"></span>
-                                <a href="#">Pobierz zakładki</a>
+                                <a onclick="StorageManager.saveBackup()">Pobierz zakładki</a>
+                            </li>
+                            <li>
+                                <input id="modal-upload" type="file" hidden>
                             </li>
                         </ul>
                     </div>
