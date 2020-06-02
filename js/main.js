@@ -205,7 +205,7 @@ const app = {
                                     ${obj.tytul}
                                 </span>
                             </li>
-                            <li>
+                            <li uk-tooltip="title: ${obj.kwota}zł <br> ${obj.kwota_slownie}; pos: left">
                                 <span class="uk-text-bold">- Kwota: </span>
                                 <br />
                                 <span class="uk-margin-left">
