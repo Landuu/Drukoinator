@@ -112,7 +112,6 @@ const app = {
             this.displayError('Popraw następujące pola:',err);
     },
     addToList(values, error_num) {
-        let is_save = $('#cbx').is(':checked');
         let is_empty = true;
         const props = Object.getOwnPropertyNames(values);
 
@@ -123,11 +122,28 @@ const app = {
             }
         }
         values.is_empty = is_empty;
-        values.is_save = is_save;
         this.print_list.push(values);
         this.refreshList();
         UIkit.modal(document.querySelector('#modal_add')).hide();
-        if(is_save && !is_empty) {
+        // if(is_save && !is_empty) {
+        //     StorageManager.saveData(values);
+        // }
+    },
+    saveBookmark() {
+        const inputs = $('.payment-input');
+        let values = {};
+        let err = [];
+
+        $(inputs).each(function(index) {
+            let name = $(this).attr('name');
+            let value = $(this).val();
+            values[name] = value;
+            if(values[name] == "")
+                err.push(name);
+        });
+        if(err.length > 0)
+            this.displayError('Aby zapisać zakładkę, popraw następujące pola:',err);
+        else {
             StorageManager.saveData(values);
         }
     },
@@ -526,6 +542,10 @@ $(document).ready(() => {
 $('#add').click(() => {
     app.prepareInputs();
     console.log(app.print_list)
+});
+
+$('#save').click(() => {
+    app.saveBookmark();
 });
 
 $('#modal-show').click(() => {
